@@ -28,7 +28,6 @@ namespace BlazorApp.Api
                     .WithConnectionModeGateway(); // See https://docs.microsoft.com/azure/cosmos-db/sql-sdk-connection-modes
                 cacheOptions.CreateIfNotExists = true;
             });
-
         }
     }
 }

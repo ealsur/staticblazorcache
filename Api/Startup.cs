@@ -25,6 +25,7 @@ namespace BlazorApp.Api
                 cacheOptions.ContainerName = "myCacheContainer";
                 cacheOptions.DatabaseName = "myCacheDatabase";
                 cacheOptions.ClientBuilder = new CosmosClientBuilder(configuration["CosmosDBConnectionString"])
+                    //.WithApplicationRegion("West US") consider configuring regional preference for data locality
                     .WithConnectionModeGateway(); // See https://docs.microsoft.com/azure/cosmos-db/sql-sdk-connection-modes, can remove and use Direct mode for more performance
                 cacheOptions.CreateIfNotExists = true;
             });

@@ -31,6 +31,10 @@ public override void Configure(IFunctionsHostBuilder builder)
 }
 ```
 
+For the full registration code, see [Startup.cs](https://github.com/ealsur/staticblazorcache/blob/main/Api/Startup.cs)
+
+Once the cache is registered, it can be used in any of the APIs by leveraging dependency injection:
+
 ```csharp
 private readonly IDistributedCache cache;
 
@@ -48,10 +52,6 @@ public async Task<IActionResult> Run(
     string cachedValue = await this.cache.GetStringAsync("myCacheKey");
     // ...
 ```
-
-For the full registration code, see [Startup.cs](https://github.com/ealsur/staticblazorcache/blob/main/Api/Startup.cs)
-
-Once the cache is registered, it can be used in any of the APIs by leveraging dependency injection:
 
 For the full code, see [CacheFunction.cs](https://github.com/ealsur/staticblazorcache/blob/main/Api/CacheFunction.cs).
 

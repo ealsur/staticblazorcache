@@ -24,7 +24,8 @@ namespace BlazorApp.Api
             {
                 cacheOptions.ContainerName = "myCacheContainer";
                 cacheOptions.DatabaseName = "myCacheDatabase";
-                cacheOptions.ClientBuilder = new CosmosClientBuilder(configuration["CosmosDBConnectionString"]);
+                cacheOptions.ClientBuilder = new CosmosClientBuilder(configuration["CosmosDBConnectionString"])
+                    .WithConnectionModeGateway(); // See https://docs.microsoft.com/azure/cosmos-db/sql-sdk-connection-modes
                 cacheOptions.CreateIfNotExists = true;
             });
 

@@ -1,52 +1,41 @@
 @page "/fetchdata"
-@using BlazorApp.Shared 
+@using BlazorApp.Shared
 @inject HttpClient Http
 
-<h1>Weather forecast</h1>
+<h1>Caching data</h1>
 
 <p>This component demonstrates fetching data from the server.</p>
 
-@if (forecasts == null)
+@if (cacheValue == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in forecasts)
-            {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    if (cacheValue.Cached)
+    {
+        <p>Obtained value from the cache</p>
+        <p>Cache was generated at @cacheValue.Value</p>
+    }
+    else
+    {
+        <p>Couldn't find value on cache</p>
+        <p>Generated and stored at @cacheValue.Value</p>
+    }
 }
 
 @code {
-    private WeatherForecast[] forecasts;
+    private CacheData cacheValue;
 
     protected override async Task OnInitializedAsync()
     {
-      try
-      {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("/api/WeatherForecast");
-      }
-      catch (Exception ex)
-      {
-        Console.WriteLine(ex.ToString());
-      }
+        try
+        {
+            cacheValue = await Http.GetFromJsonAsync<CacheData>("/api/Cache");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
     }
 }
